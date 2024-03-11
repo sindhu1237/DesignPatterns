@@ -1,16 +1,16 @@
-## Design a Bird ?
+## Design a Bird?
 * Design is iterative
      > In the context of software design principles, iterative refers to a process of continuously improving a design or product through repeated cycles of development, testing, and refinement. 
 * Design is interactive
 * Design is subjective ``Pros and cons``
 
 
-# `Requirment ` :
+# `Requirement ` :
   Design a bird.
 
 `Version 0` : 
-  * Bird class and data members like weight, color, type and son on.
-  * Can have methods like eat, fly and make sound methods.
+  * Bird class and data members like weight, color, type, and so on.
+  * Can have methods like eat, fly, and make sound methods.
 
 makeSound() {
   if (type == 'Sparrow') {
@@ -22,14 +22,14 @@ makeSound() {
   }
   }
 
-#### **Problem with version 0 :**
+#### **Problem with version 0:**
 1. **Readability** - If we have more than 500 birds, the code will have a lot of nested if-else statements, making it hard to read and understand.
 
 2. **Testability** - If we want to test the makeSound() method for each bird, we will have to create 500 functions in the JUnit Testing Framework, which will make testing difficult and time-consuming.
 
 3. **Parallel Development** - If multiple developers work on this codebase, there is a high chance of merge conflicts, which would require manual effort to resolve.
 
-4. **SRP violation** - The code violates the Single Responsibility Principle (SRP), which states that every code unit (such as a method, class, or package) should have a clearly defined responsibility and a single reason for change in code.
+4. **SRP violation** - The code violates the Single Responsibility Principle (SRP), which states that every code unit (such as a method, class, or package) should have a clearly defined responsibility and a single reason for the code change.
 
 
 `Version 1` :
@@ -45,7 +45,7 @@ if (type == 'Sparrow') {
 
 > Version 1 is handling SRP better than version 0.
 
-**SRP code smells :** 
+**SRP code smells:** 
 1. Lots of if-else 
 2. Monster Methods
 3. Common/ Shared/ Utility folder
@@ -65,10 +65,10 @@ makeCrowSound();
 makePeacockSound();
 }
 }`
-#### **Problem with version 1.1 :**
+#### **Problem with version 1.1:**
 1. OCP violation
 
-### **Open-Closed Principle :**
+### **Open-Closed Principle:**
 
 > The Open-Closed Principle (OCP) is a software design principle that emphasizes the importance of creating software entities such as classes, modules, and functions in a way that they are open for extension but closed for modification. This means that it should be possible to add new functionality to a software entity without having to modify its existing code.
 
@@ -141,7 +141,7 @@ void makeSound() { }
 }
 `
 
-##### **LSP Violation :**
+##### **LSP Violation:**
 
 1. Don't surprise the client.
 2. Don't advertise something that you can't do.
@@ -220,4 +220,4 @@ void eat () { }
 void makeSound() { }
 }`
 
-* If there are 10 features then we will have 2^10 classes which leads to **Class Explosion**.
+* If there are 10 features then we will have 2^10 classes which leads to _**Class Explosion**_.
