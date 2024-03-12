@@ -221,3 +221,253 @@ void makeSound() { }
 }`
 
 * If there are 10 features then we will have 2^10 classes which leads to _**Class Explosion**_.
+
+##### **LSP :**
+> Child class should be able to substitute parent class
+
+**Version 3 :**
+
+`abstract class Bird {
+int weight;
+String color;
+String type;
+void eat() { }
+}`
+
+`interface Flyable {
+Void fly();
+}`
+
+`interface Talkable {
+void makeSound();
+}`
+
+`class Sparrow extends Bird implements Flyable, Talkabale {
+void fly() { }
+void eat() { }
+void makeSound() { }
+}`
+
+`class Crow extends Bird implements Flyable, Talkable {
+void fly() { }
+void eat() { }
+void makeSound() { }
+}`
+
+`class Penguin extends Bird implements Talkable {
+void eat() { }
+void makeSound() { }
+}`
+
+`class Kiwi extends Bird {
+void eat() { }
+}`
+
+
+**Requirement :** All flying birds should dance also.
+
+**Version 3.1 :**
+
+`abstract class Bird {
+int weight;
+String color;
+String type;
+void eat() { }
+}`
+
+`interface Flyable {
+Void fly();
+void dance();
+}`
+
+`interface Talkable {
+void makeSound();
+}`
+
+`class Sparrow extends Bird implements Flyable, Talkabale {
+void fly() { }
+void eat() { }
+void dance() { }
+void makeSound() { }
+}`
+
+`class Crow extends Bird implements Flyable, Talkable {
+void fly() { }
+void eat() { }
+void dance() { }
+void makeSound() { }
+}`
+
+`class Penguin extends Bird implements Talkable {
+void eat() { }
+void makeSound() { }
+}`
+
+`class Kiwi extends Bird {
+void eat() { }
+}`
+
+* version 3.1 leads to violation of interface segregation principle.
+* Try to keep interfaces as small as possible.(have related functions together.)
+* ISP as SRP of interfaces.
+* of all java interfaces with a single function.
+    e.g : Runnable, Callable, Cloneable, Comparable, Comparator
+
+
+**Version 4 :**
+
+`abstract class Bird {
+int weight;
+String color;
+String type;
+void eat() { }
+}`
+
+`interface Flyable {
+Void fly();
+}`
+
+`interface Talkable {
+void makeSound();
+}`
+
+`interface DanceAble {
+void dance();
+}`
+
+`class Sparrow extends Bird implements Flyable, Talkabale, DanceAble {
+void fly() { }
+void eat() { }
+void makeSound() { }
+void dance() { }
+}`
+
+`class Crow extends Bird implements Flyable, Talkable, DanceAble {
+void fly() { }
+void eat() { }
+void makeSound() { }
+void dance() { }
+}`
+
+`class Penguin extends Bird implements Talkable {
+void eat() { }
+void makeSound() { }
+}`
+
+`class Kiwi extends Bird {
+void eat() { }
+}`
+
+* Now we will consider only fly method for all birds.
+
+`class Sparrow {
+L1
+L2
+L3
+L4
+}`
+
+`class Peacock {
+L1
+L2
+L3
+L4
+}`
+
+`class Crow {
+L1.1
+L2.2
+L3.3
+L4.4
+}`
+
+`class Pigeon {
+L1.1
+L2.2
+L3.3
+L4.4
+}`
+
+* In the above code we can see duplicate of code which leads to **DRY -  Don't Reapeat Yourself** is violated.
+
+
+**Version 4.1 :**
+
+`interface Flyator {
+    void flightAlgorithm();
+}`
+
+`class FastFlyator {
+void flightAlgorithm() { 
+L1;
+L2;
+L3;
+L4;
+}
+}`
+
+`class SlowFlyator {
+void flightAlgorithm() {
+L1.1;
+L2.2;
+L3.3;
+L4.4;
+}
+}`
+
+
+`class Sparrow {
+void fly() {
+Flyator r = new SlowFlyator();
+r.flightAlgorithm();
+}
+}`
+
+`class Peacock {
+void fly() {
+Flyator r = new SlowFlyator();
+r.flightAlgorithm();
+}
+}`
+
+`class Crow {
+void fly() {
+Flyator r = new FastFlyator();
+r.flightAlgorithm();
+}
+}`
+
+`class Pigeon {
+void fly() {
+Flyator r = new FastFlyator();
+r.flightAlgorithm();
+}
+}`
+
+* **Verion 4.1 leads to _DIP violation_ or _tight coupling_**.
+
+Loose coupling : We can remove and change the device or interface.
+
+* version 4.1 old code 
+    client -> sparrow -> slowFlyator();
+* **Client depends on sparrow and sparrow depends on SlowFlyator**
+* Version 5 new code (Bird design)
+    client -> sparrow 
+    sparrow -> client (for dependency i.e ref)
+    Dependency injected by the client
+* **Client depends on sparrow but sparrow also depends upon client to get its dependency**
+
+**_DIP_ :**
+High level modules should not directly depend on low level modules instead they should both depend on abstractions.
+High level module should provide a socket where low level modules can be plugged and switched.(loose coupling)
+
+
+### Dependency Injection :
+1. Method Injection
+    Benefit : Switching is possible.
+    Loss : Possible to create object with no dependency set.
+2. Constructor Injection
+    Benefit : Dependency is provided at object creation time.
+    Loss : Cannot switch dependency in same object so need to create object again.
+
+
