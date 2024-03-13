@@ -9,10 +9,10 @@
 * `I` - Interface Segregation Principle
 * `D` - Dependency Inversion Principle
 
->##### Guidelines to help engineers design better software
+>##### Guidelines to help engineers design better software 
 * Features of a well-designed software
     1. Maintainable - easy to fix bugs
     2. Extensible - easy to add new features
-    3. Readable -
+    3. Readable
     4. Testable
     5. Reusable
