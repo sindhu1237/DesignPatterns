@@ -39,3 +39,11 @@ Design patterns are commonly encountered design problems with well establoished 
 *  Bothers 
 
     - Iterator Design 
+
+stack - local 
+heap - object level
+PermGen - class 
+
+private **static** DBconnection dbcon;
+Here if we dont declare static we can create multiple objects.
+If we use **static** we can store it in **PERMGEN**

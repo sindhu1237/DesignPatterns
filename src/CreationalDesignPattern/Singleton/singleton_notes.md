@@ -227,6 +227,7 @@ return instance;
 `class Client{
 main() {
 DBConnection db1 = DBConnection.getInstance();
+DBConnection db1 = DBConnection.getInstance();
 }
 }`
 
@@ -235,3 +236,45 @@ DBConnection db1 = DBConnection.getInstance();
 **Problem :**
 * The above version works for single threaded applications.
 * Multiple threads can make multiple objects via Race Condition.
+* **Singleton is violated in multithreaded application**
+
+
+### **Version 7 :**
+
+`class DBConnection {
+String url; [location of db server]
+String username;
+String Password;
+TCPConnection tconn;
+private static DBConnection instance;
+private DBConnection(String url, String username, String password) {
+url = url;
+username = username;
+password = password;
+tconn = new TCPConnection();
+}
+public static synchronized DBConnection getInstance() {
+if(instance ==  null){
+instance = new DBConnection();
+}
+return instance;
+}
+}`
+
+`class Client{
+main() {
+DBConnection db1 = DBConnection.getInstance();
+Thread t1 = new Thread(db1);
+t1.start();
+DBConnection db2 = DBConnection.getInstance();
+Thread t2 = new Thread(db2);
+t2.start();
+}
+}`
+
+* version 7 works for multithreaded applications.
+
+#### problem in version 7 :
+* it has poor performance.
+* 
+
