@@ -276,5 +276,49 @@ t2.start();
 
 #### problem in version 7 :
 * it has poor performance.
-* 
+
+1. which threads are waiting ?
+2. which thread are waiting meaningfully? (if they don't wait singleton will fail.)
+3. which thread are waiting meaningless? (if this thread don't wait single thread will still work)
+
+
+#### Version 8 :
+`class DBConnection {
+String url; [location of db server]
+String username;
+String Password;
+TCPConnection tconn;
+Lock lock;
+private static DBConnection instance;
+private DBConnection(String url, String username, String password) {
+url = url;
+username = username;
+password = password;
+tconn = new TCPConnection();
+}
+public static DBConnection getInstance() {
+if(instance ==  null){
+lock.lock();
+instance = new DBConnection();
+lock.unlock();
+}
+return instance;
+}
+}`
+
+`class Client{
+main() {
+DBConnection db1 = DBConnection.getInstance();
+Thread t1 = new Thread(db1);
+t1.start();
+DBConnection db2 = DBConnection.getInstance();
+Thread t2 = new Thread(db2);
+t2.start();
+}
+}`
+
+#### problem in version 8 :
+* the version 8 will not work as singleton design pattern.
+
+
 
