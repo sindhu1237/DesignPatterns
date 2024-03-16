@@ -321,4 +321,42 @@ t2.start();
 * the version 8 will not work as singleton design pattern.
 
 
+#### Version 9 : _Dual Null Check Locking_
+`class DBConnection {
+String url; [location of db server]
+String username;
+String Password;
+TCPConnection tconn;
+Lock lock;
+private static DBConnection instance;
+private DBConnection(String url, String username, String password) {
+url = url;
+username = username;
+password = password;
+tconn = new TCPConnection();
+}
+public static DBConnection getInstance() {
+if(instance ==  null){
+lock.lock();
+if(instance == null){
+instance = new DBConnection();
+}
+lock.unlock();
+}
+return instance;
+}
+}`
+
+`class Client{
+main() {
+DBConnection db1 = DBConnection.getInstance();
+Thread t1 = new Thread(db1);
+t1.start();
+DBConnection db2 = DBConnection.getInstance();
+Thread t2 = new Thread(db2);
+t2.start();
+}
+}`
+
+
 
