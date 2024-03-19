@@ -359,4 +359,39 @@ t2.start();
 }`
 
 
+#### Version 10 : Stack,heap and PERMGen or Eager Loading
+`class DBConnection {
+String url; [location of db server]
+String username;
+String Password;
+TCPConnection tconn;
+Lock lock;
+private static DBConnection instance;
+private DBConnection(String url, String username, String password) {
+url = url;
+username = username;
+password = password;
+tconn = new TCPConnection();
+}
+public static final DBConnection instance = new DBConnection();
+}`
+
+`class Client{
+main() {
+DBConnection db1 = DBConnection.getInstance();
+Thread t1 = new Thread(db1);
+t1.start();
+DBConnection db2 = DBConnection.getInstance();
+Thread t2 = new Thread(db2);
+t2.start();
+}
+}`
+
+* simple,
+* Works for single threaded and multithreaded application.
+* Is fast also [No locking]
+* Not used JAva calls it before main,so we cant pass dynamic parameters(like take input or reading a file from somewhere)
+
+**Doubt :**
+1. Can we make inst ref Atomic type to solve the problem??
 
