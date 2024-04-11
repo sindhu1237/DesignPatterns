@@ -57,3 +57,7 @@ PermGen - class
 private **static** DBconnection dbcon;
 Here if we don't declare static we can create multiple objects.
 If we use **static** we can store it in **PERMGEN**
+
+
+
+#### Builder Design Pattern 
